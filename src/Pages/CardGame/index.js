@@ -44,7 +44,7 @@ function Card({ card, index, totalCards }) {
       <div className="card-center">{card.suit}</div>
       <div className="card-corner bottom-right">
         <div>{card.rank}</div>
-        <div>{card.suit}xxxxx</div>
+        <div>{card.suit}</div>
       </div>
     </div>
   );

@@ -11,34 +11,40 @@ export default function ImageExtraction() {
   const [isDragging, setIsDragging] = useState(false);
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
   const [currentPos, setCurrentPos] = useState({ x: 0, y: 0 });
-  const [selection, setSelection] = useState(null);
+  const [selection, setSelection] = useState(null); // {x, y, width, height}
   const [croppedDataUrl, setCroppedDataUrl] = useState(null);
 
+  // Load image and draw on canvas whenever imageSrc changes
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     const img = imgRef.current;
 
     img.onload = () => {
+      // Resize canvas to image size
       canvas.width = img.width;
       canvas.height = img.height;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(img, 0, 0);
+      // Clear previous selection
       setSelection(null);
       setCroppedDataUrl(null);
     };
     img.src = imageSrc;
   }, [imageSrc]);
 
+  // Draw selection rectangle on canvas
   useEffect(() => {
     if (!selection) return;
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     const img = imgRef.current;
 
+    // Redraw image first
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, 0, 0);
 
+    // Draw semi-transparent selection rectangle
     ctx.strokeStyle = 'red';
     ctx.lineWidth = 2;
     ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
@@ -46,6 +52,7 @@ export default function ImageExtraction() {
     ctx.fillRect(selection.x, selection.y, selection.width, selection.height);
   }, [selection]);
 
+  // Mouse event handlers
   const handleMouseDown = (e) => {
     const rect = canvasRef.current.getBoundingClientRect();
     setStartPos({
@@ -66,6 +73,7 @@ export default function ImageExtraction() {
       x: e.clientX - rect.left,
       y: e.clientY - rect.top,
     });
+    // Update selection rectangle dynamically
     const x = Math.min(startPos.x, e.clientX - rect.left);
     const y = Math.min(startPos.y, e.clientY - rect.top);
     const width = Math.abs(startPos.x - (e.clientX - rect.left));
@@ -89,6 +97,8 @@ export default function ImageExtraction() {
 
     tempCanvas.width = selection.width;
     tempCanvas.height = selection.height;
+
+    // Draw the selected portion from the main canvas to temp canvas
     tempCtx.drawImage(
       canvas,
       selection.x,
@@ -100,10 +110,13 @@ export default function ImageExtraction() {
       selection.width,
       selection.height
     );
+
+    // Get data URL of cropped image
     const dataUrl = tempCanvas.toDataURL();
     setCroppedDataUrl(dataUrl);
   };
 
+  // Handle file input change to load new image
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
