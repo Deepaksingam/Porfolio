@@ -56,7 +56,7 @@ export default function CardGame() {
 
   const drawCard = () => {
     if (deck.length === 0) return;
-    setDrawnCards([...drawnCards, deck[0]]); // Add to end for better fanning
+    setDrawnCards([...drawnCards, deck[0]]); 
     setDeck(prev => prev.slice(1));
   };
 
