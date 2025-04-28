@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-
+import "./index.css";
 const DEFAULT_IMAGE = 'https://via.placeholder.com/600x400.png?text=Default+Image';
 
 export default function ImageExtraction() {
@@ -129,7 +129,7 @@ export default function ImageExtraction() {
   };
 
   return (
-    <div style={{ maxWidth: 700, margin: 'auto', fontFamily: 'Arial, sans-serif' }}>
+    <div className='sectionBox'>
       <h2>Image Selection and Extraction Using Canvas</h2>
 
       <input type="file" accept="image/*" onChange={handleFileChange} />
