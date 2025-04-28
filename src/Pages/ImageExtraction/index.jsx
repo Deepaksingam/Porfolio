@@ -1,10 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from "react";
 import "./index.css";
-const DEFAULT_IMAGE = 'https://via.placeholder.com/600x400.png?text=Default+Image';
+const DEFAULT_IMAGE =
+  "https://via.placeholder.com/600x400.png?text=Default+Image";
 
 export default function ImageExtraction() {
   const canvasRef = useRef(null);
-  const selectionCanvasRef = useRef(null);
   const imgRef = useRef(new Image());
 
   const [imageSrc, setImageSrc] = useState(DEFAULT_IMAGE);
@@ -17,7 +17,7 @@ export default function ImageExtraction() {
   // Load image and draw on canvas whenever imageSrc changes
   useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     const img = imgRef.current;
 
     img.onload = () => {
@@ -37,7 +37,7 @@ export default function ImageExtraction() {
   useEffect(() => {
     if (!selection) return;
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     const img = imgRef.current;
 
     // Redraw image first
@@ -45,9 +45,9 @@ export default function ImageExtraction() {
     ctx.drawImage(img, 0, 0);
 
     // Draw semi-transparent selection rectangle
-    ctx.strokeStyle = 'red';
+    ctx.strokeStyle = "red";
     ctx.lineWidth = 2;
-    ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
+    ctx.fillStyle = "transparent";
     ctx.strokeRect(selection.x, selection.y, selection.width, selection.height);
     ctx.fillRect(selection.x, selection.y, selection.width, selection.height);
   }, [selection]);
@@ -92,8 +92,8 @@ export default function ImageExtraction() {
 
     // Extract selected portion
     const canvas = canvasRef.current;
-    const tempCanvas = document.createElement('canvas');
-    const tempCtx = tempCanvas.getContext('2d');
+    const tempCanvas = document.createElement("canvas");
+    const tempCtx = tempCanvas.getContext("2d");
 
     tempCanvas.width = selection.width;
     tempCanvas.height = selection.height;
@@ -129,30 +129,34 @@ export default function ImageExtraction() {
   };
 
   return (
-    <div className='sectionBox'>
-      <h2>Image Selection and Extraction Using Canvas</h2>
-
-      <input type="file" accept="image/*" onChange={handleFileChange} />
-      <p>Drag on the image below to select a rectangular area.</p>
-
-      <canvas
-        ref={canvasRef}
-        style={{ border: '1px solid #ccc', cursor: 'crosshair', maxWidth: '100%' }}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-      />
-
-      {croppedDataUrl && (
-        <div style={{ marginTop: 20 }}>
-          <h3>Cropped Image:</h3>
-          <img
-            src={croppedDataUrl}
-            alt="Cropped selection"
-            style={{ border: '1px solid #ccc', maxWidth: '100%' }}
-          />
+    <div className="sectionBox">
+      <div className="pageAlignment">
+        <div>
+          <h2>Image Selection and Extraction Using Canvas</h2>
+          <input type="file" accept="image/*" onChange={handleFileChange} />
+          <p>Drag on the image below to select a rectangular area.</p>
         </div>
-      )}
+        <div>
+          <canvas
+            ref={canvasRef}
+            className="canvasBox"
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+          />
+
+          {croppedDataUrl && (
+            <div className="croppedImageBox">
+              <h3>Cropped Image:</h3>
+              <img
+                src={croppedDataUrl}
+                alt="Cropped selection"
+                className="croppedImage"
+              />
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

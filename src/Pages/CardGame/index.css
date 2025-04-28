@@ -166,3 +166,9 @@ button:disabled {
     min-height: 250px;
   }
 }
+
+.buttonCard{
+  font-family: fantasy;
+  font-weight: 600;
+  font-size: 18px;
+}

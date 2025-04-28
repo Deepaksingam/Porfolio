@@ -1,20 +1,28 @@
-.sectionBox
-{
-    max-width: 1000px;
-    margin: auto;
-    font-family: fantasy;
+.sectionBox {
+  max-width: "100%";
+  margin: auto;
+  font-family: fantasy;
+  background-color: blanchedalmond;
+  color: cornflowerblue;
 }
-
-.canvasBox
-{
-    border: '1px solid #ccc'; 
-    cursor: 'crosshair'; 
-    max-width: '100%' ;
+.pageAlignment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.croppedImageBox{
-    margin: 20px 0 20px 0;
-    padding: 20px 0 20px 0;
+.canvasBox {
+  border: "1px solid #ccc";
+  cursor: "crosshair";
+  max-width: "100%";
 }
-.croppedImage{
-    border: '1px solid #ccc'; max-width: '100%' ;
+.croppedImageBox {
+  margin: 20px 0 20px 0;
+  padding: 20px 0 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.croppedImage {
+  border: "1px solid #ccc";
+  max-width: "100%";
 }

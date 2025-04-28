@@ -70,10 +70,10 @@ export default function CardGame() {
       <h1>Poker Hand Simulator</h1>
       
       <div className="controls">
-        <button onClick={drawCard} disabled={deck.length === 45}>
+        <button onClick={drawCard} disabled={deck.length === 45} className='buttonCard'>
           Draw Card
         </button>
-        <button onClick={resetDeck}>Reset Deck</button>
+        <button onClick={resetDeck} className='buttonCard'>Reset Deck</button>
         <div className="counter">Cards Remaining: {deck.length}</div>
       </div>
 
